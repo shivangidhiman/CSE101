@@ -1,9 +1,3 @@
-'''Name:Shivangi Dhiman
-Roll no.:2018265
-Section:B
-Group:2
-HW:4'''
-
 import matplotlib.pyplot as plt
 from math import *
 
