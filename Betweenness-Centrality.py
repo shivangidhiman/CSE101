@@ -1,7 +1,6 @@
-#!/usr/bin/env python3
 
-import re
 import itertools
+import re
 
 class Graph(object):
 
@@ -15,13 +14,13 @@ class Graph(object):
 		self.graph_dict = graph_dict
 		
 
-	def min_dist(self, graph_dict, start_node, end_node):
+	def min_dist(self, graph_dict, startNode, endNode):
 
 		visited = []
-		queue = [start_node]
+		queue = [startNode]
 
-		if ((start_node == end_node)==True):
-			return start_node 
+		if ((startNode == endNode)==True):
+			return startNode 
 
 		while queue:
 			path = queue.pop(0)
@@ -32,14 +31,14 @@ class Graph(object):
 			# go through all adjacent nodes, construct a new path and
 			# push it into the queue
 				for adjacent in neighbours:
-					new_path = list(path)
-					new_path.append(adjacent)
-					queue.append(new_path)
+					newPath = list(path)
+					newPath.append(adjacent)
+					queue.append(newPath)
 
-					if ((adjacent == end_node)!=False):
-						route= new_path
-						new_route=list(map(int,route))
-						num=len(new_route)
+					if ((adjacent == endNode)!=False):
+						route= newPath
+						newRoute=list(map(int,route))
+						num=len(newRoute)
 						return(num) 
 
 
@@ -62,16 +61,16 @@ class Graph(object):
 
 	def all_shortest_paths(self,paths):
 		
-		short_path_list=[]
+		shortPathList=[]
 		Min=10000000
 		for i in paths:
 			if(len(i)<Min):
 				Min=len(i)
 		for i in paths:
 			if(len(i)==Min):
-				short_path_list.append(i)
+				shortPathList.append(i)
 
-		return short_path_list
+		return shortPathList
 
 
 	def betweenness_centrality(self):
@@ -122,7 +121,7 @@ class Graph(object):
 
 if __name__ == "__main__":
 	vertices = [1, 2, 3, 4, 5, 6]
-	edges    = [(1, 2), (1, 4), (2, 3), (2, 5), (3, 4), (3,6), (4, 5), (4, 6)]
+	edges    = [(1, 2), (1, 3), (2, 3), (2, 5), (3, 4), (3,6), (4, 5), (4, 6)]
 	graph_dict={}
 	#to form an adjacent matrix
 	for i in vertices:
