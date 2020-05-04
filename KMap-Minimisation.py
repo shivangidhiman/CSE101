@@ -1,4 +1,3 @@
-#KMaps Minimization
 
 def minFunc(numVar, stringIn):
     brack_minterms=stringIn.find(')')
@@ -23,7 +22,7 @@ def minFunc(numVar, stringIn):
     while (len(group)!=0):
         all_group.append(group)
         next_group, unmatched = combinePairs(group,unmatched)
-        group = remove_redundant(next_group)
+        group = removeRedundant(next_group)
     
     s = ''
     for i in unmatched:
@@ -36,8 +35,8 @@ def minFunc(numVar, stringIn):
             if compBinarySame(unmatched[j], string[i]):
                Table[j][i] = 1
     #prime contains the index of the prime implicant terms
-    primes = find_minimum_value(Table, unmatched)
-    primes = remove_redundant(primes)
+    primes = findMinVal(Table, unmatched)
+    primes = removeRedundant(primes)
 
     for prime in primes:
         s=''
@@ -89,7 +88,7 @@ def combinePairs(group, unmatched):
 
 
 #remove redundant lists in 2d list
-def remove_redundant(next_group):
+def removeRedundant(next_group):
     new_group = []
     for j in next_group:
         new=[]
@@ -140,7 +139,7 @@ def compBinarySame(term,number):
 
 
 #remove redundant in 1d list
-def remove_redundant_list(list):
+def removeRedundantList(list):
     new_list = []
     for i in list:
         if i not in new_list:
@@ -149,7 +148,7 @@ def remove_redundant_list(list):
 
 
 #find essential prime implicants ( col num of ones = 1)
-def find_prime(Table):
+def findPrime(Table):
     prime = []
     for col in range(len(Table[0])):
         count = 0
@@ -164,7 +163,7 @@ def find_prime(Table):
     return prime
 
 
-def check_all_zero(Table):
+def checkAllZero(Table):
     for i in Table:
         for j in i:
             if j != 0:
@@ -193,8 +192,8 @@ def multiplication(list1, list2):
         return list(list_final for list_final,_ in itertools.groupby(list_final))
 
 
-#petrick's method
-def petrick(Table):
+#Petrick's Method
+def PetrickMethod(Table):
     P = []
     for col in range(len(Table[0])):
         p =[]
@@ -221,10 +220,10 @@ def petrick(Table):
 
 
 #Table = n*n list
-def find_minimum_value(Table, unmatched):
+def findMinVal(Table, unmatched):
     P_final = []
-    essential_prime = find_prime(Table)
-    essential_prime = remove_redundant_list(essential_prime)
+    essential_prime = findPrime(Table)
+    essential_prime = removeRedundantList(essential_prime)
 
     if len(essential_prime)>0:
         s = ''
@@ -241,10 +240,10 @@ def find_minimum_value(Table, unmatched):
                 for row in range(len(Table)):
                     Table[row][col] = 0
 
-    if check_all_zero(Table) == True:
+    if checkAllZero(Table) == True:
         P_final = [essential_prime]
     else:
-        P = petrick(Table)
+        P = PetrickMethod(Table)
 
         P_cost = []
         for prime in P:
@@ -279,8 +278,8 @@ def cal_efficient(s):
 n = int(input("Enter the number of queries: "))
 
 for i in range(n):
-    s = input("Funtion [eg: (0,2,5,7,8,10,13,15)]: ")
     v = int(input("\nNo. of variables: "))
+    s = input("Function [eg: (0,2,5,7,8,10,13,15)]: ")
     print("Simplified Expression:", minFunc(v,s))
 
 
